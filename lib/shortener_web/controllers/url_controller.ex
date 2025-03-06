@@ -3,7 +3,8 @@ defmodule ShortenerWeb.UrlController do
   alias Shortener.Urls
 
   def index(conn, %{"id" => id}) do
-    case Urls.get_original_url(id) do
+    IO.inspect(id)
+    case Urls.get_original_url("https://sveno.dev/#{id}") do
       {:ok, url} -> redirect(conn, external: "#{url}")
       {:error, _} -> send_resp(conn, 400, "Not found")
     end
