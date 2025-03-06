@@ -3,7 +3,7 @@ defmodule Shortener.Url do
   import Ecto.Changeset
 
   schema "urls" do
-    field :original, :string
+    field :original, :text
     field :shortened, :string
 
     timestamps(type: :utc_datetime)
