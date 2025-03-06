@@ -7,7 +7,7 @@ defmodule Shortener.Urls do
     case Repo.one(from u in Url,
       where: u.original == ^url) do
       nil ->
-        "https://zwnow.github.io/shortener/#{Ecto.UUID.generate()}"
+        "https://sveno.dev/#{Ecto.UUID.generate()}"
         |> persist(url)
       url -> url.shortened
     end

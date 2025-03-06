@@ -4,7 +4,7 @@ defmodule ShortenerWeb.UrlController do
 
   def index(conn, %{"id" => id}) do
     case Urls.get_original_url(id) do
-      {:ok, url} -> json(conn, %{url: url})
+      {:ok, url} -> redirect(conn, external: "#{url}")
       {:error, _} -> send_resp(conn, 400, "Not found")
     end
   end

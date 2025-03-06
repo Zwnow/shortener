@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shortener</title>
+
+        <script defer>
+        const shorten = async() => {
+            const inp = document.getElementById("inp")
+            if (inp.value.length < 25) {
+                document.getElementById("result").innerText = "Common, this one is already short enough! :D"
+            } else {
+                const r = await fetch("https://sveno.dev/shorten", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        url: inp.value,
+                    })
+                });
+
+                if (r.status === 200) {
+                    const data = await r.json();
+                    document.getElementById("result").innerText = data.shortened_url;
+                } else {
+                    document.getElementById("result").innerText = "Something went wrong, maybe the service is down.";
+                }
+            }
+        }
+        </script>
+    </head>
+    <body style="display: absolute; background: black; display: flex; justify-content: center; align-items: center;">
+        <div style="padding: 12px; width: 360px; height: 200px; background: white; border-radius: 12px; justify-content: center; align-items: center; display: flex; flex-direction: column; gap: 8px;">
+            <h4>Shorten some URL</h4>
+            <input type="text" id="inp" style="display: flex; width: 100%; padding: 8px; border: 1px solid black; border-radius: 4px;">
+            <button 
+                style="width: 100px; padding: 8px;"
+                onclick="shorten()">Shorten</button>
+            <p id="result"></p>
+        </div>
+    </body>
+</html>
